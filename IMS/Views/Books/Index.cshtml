@@ -1,0 +1,69 @@
+﻿@model IEnumerable<IMS.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div style="font-family:Arial">
+<h2>Book Inventory Management</h2>
+
+<p>
+    @Html.ActionLink("Add Book", "Create")
+</p>
+<p>
+    @using (Html.BeginForm("Index","Books",FormMethod.Get))
+    {
+        <b>Search By:</b>@Html.RadioButton("searchBy", "Author",true)<text>Author</text>
+        @Html.RadioButton("searchBy", "Title")<text>Title</text>
+        @Html.RadioButton("searchBy", "ISBN")<text>ISBN</text><br/>
+        @Html.TextBox("search")<input type="submit" value="Search" />
+    }
+</p>
+<table class="table" border="1">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Publisher)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>Action</th>
+    </tr>
+@if (Model.Count() == 0)
+{
+    <tr>
+        <td colspan="4">No Rows Match Search Criteria.</td>
+    </tr>
+}
+else
+{
+foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Publisher)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ISBN }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ISBN }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ISBN })
+        </td>
+    </tr>
+}
+}
+</table>
+</div>
